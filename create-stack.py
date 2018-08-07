@@ -59,9 +59,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--name', type=str, required=True,
                        help='the name of the stack to create.')
-    # parser.add_argument('--templateurl', type=str, required=True,
-    #                    help='the url where the stack template can be fetched.')
-
 
     parser.add_argument('--params', type=str, required=True,
                        help='the key value pairs for the parameters of the stack.')

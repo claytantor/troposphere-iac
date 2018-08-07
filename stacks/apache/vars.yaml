@@ -1,0 +1,13 @@
+dev:
+  InstanceType: t1.micro
+  SecurityGroups:
+    - default
+  RegionMap:
+        us-east-1:
+          AMI: ami-7f418316,
+        us-west-1:
+          AMI: ami-951945d0,
+        us-west-2:
+          AMI: ami-16fd7026
+        eu-west-1:
+          AMI: ami-24506250

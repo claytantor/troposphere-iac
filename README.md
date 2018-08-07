@@ -1,6 +1,9 @@
 # troposphere-iac
 a basic pattern for doing IAC with troposphere
 
+## installing requirements
+`pip install -r requirements.txt`
+
 # display stack
 
 
@@ -36,7 +39,7 @@ arguments:
 And an example:
 
 ```
-$ python create-stack.py  --name newstack01  --templateurl https://raw.githubusercontent.com/dronzebot/dronze-qlearn/master/cicd/cloudformation/ec2_instance_sg.json?token=AAY5LkQG0d0G4Uql5Y8T-74L2BuGjKfNks5Y7kTAwA%3D%3D --params "KeyName=dronze-oregon-dev&InstanceType=t2.small"   --tags "name=newstack01&roo=mar"    --topicarn arn:aws:sns:us-west-2:705212546939:dronze-qlearn-cf
+$ python create-stack.py --name newstack01 --params "KeyName=dronze-oregon-dev&InstanceType=t2.small" --tags "name=newstack01&roo=mar"
 INFO       2017-04-05 08:17:07,009 make_cloudformation_client           50  : using default config.
 INFO       2017-04-05 08:17:07,041 load                                 628 : Found credentials in shared credentials file: ~/.aws/credentials
 INFO       2017-04-05 08:17:07,675 _new_conn                            735 : Starting new HTTPS connection (1): cloudformation.us-west-2.amazonaws.com
@@ -81,3 +84,9 @@ LOG_LEVEL="INFO"
 ```
 
 Boto3 is capable of auto configuration, and it will behave like aws CLI and attempt to find configs from ~/.aws/credentials but if you want explicit configs that is available using the config option in the CLI. If you do this the debug level will default to INFO.
+
+# running a stack build
+
+Currently builing a stack is a combination of creating the template and sending the output of the template to stdio.
+
+`python stacks/apache/ --name dev | python create-stack.py --name newstack01 --params "KeyName=dronze-oregon-dev&InstanceType=t2.small" --tags "name=newstack01&roo=mar"`
