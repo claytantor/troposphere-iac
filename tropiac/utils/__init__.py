@@ -2,6 +2,7 @@
 # coding: utf-8
 import logging
 import boto3
+from troposphere import Parameter, Output, Ref, Template, Tags
 
 LOG_FORMAT = ('%(levelname) -10s %(asctime)s %(funcName) '
               '-35s %(lineno) -5d: %(message)s')
@@ -54,3 +55,6 @@ def make_cloudformation_client(config=None):
         raise ValueError('Not able to initialize boto3 client with configuration.')
     else:
         return client
+
+def make_tags(cfg):
+    return Tags(Name=cfg['Name'],)

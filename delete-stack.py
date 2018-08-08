@@ -13,7 +13,7 @@ import time
 import signal
 
 from urlparse import urlparse, parse_qs
-from utils import make_cloudformation_client, load_config, get_log_level
+from tropiac.utils import make_cloudformation_client, load_config, get_log_level
 
 LOG_FORMAT = ('%(levelname) -10s %(asctime)s %(funcName) '
               '-35s %(lineno) -5d: %(message)s')
