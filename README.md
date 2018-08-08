@@ -85,8 +85,10 @@ LOG_LEVEL="INFO"
 
 Boto3 is capable of auto configuration, and it will behave like aws CLI and attempt to find configs from ~/.aws/credentials but if you want explicit configs that is available using the config option in the CLI. If you do this the debug level will default to INFO.
 
-# running a stack build
+# gen template
+`python gen-template.py --name apache --config dev`
 
+# running a stack build
 Currently builing a stack is a combination of creating the template and sending the output of the template to stdio.
 
-`python stacks/apache/ --name dev | python create-stack.py --name newstack01 --params "KeyName=dronze-oregon-dev&InstanceType=t2.small" --tags "name=newstack01&roo=mar"`
+`python gen-template.py --name apache --config dev | python create-stack.py --name ec2-basic-01 --params "KeyName=dronze-oregon-dev&InstanceType=t2.small" --tags "name=newstack01&roo=mar"`
