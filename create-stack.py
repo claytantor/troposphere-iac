@@ -13,6 +13,7 @@ import sys
 import time
 import signal
 import fileinput
+import traceback
 
 from urlparse import urlparse, parse_qs
 from utils import make_cloudformation_client, load_config, get_log_level
@@ -48,9 +49,16 @@ def make_kv_from_args(params_as_querystring, name_prefix="", use_previous=None):
 
     return kv_pairs
 
-def json_from_stdin(fileinput):
+# def json_from_stdin(fileinput):
+#     new_log=''
+#     for line in fileinput.input():
+#         new_log += line
+#
+#     return new_log
+
+def json_from_stdin(lines):
     new_log=''
-    for line in fileinput.input():
+    for line in lines:
         new_log += line
 
     return new_log
@@ -62,8 +70,6 @@ def main():
 
     parser.add_argument('--params', type=str, required=True,
                        help='the key value pairs for the parameters of the stack.')
-    # parser.add_argument('--topicarn', type=str, required=True,
-    #                    help='the SNS topic arn for notifications to be sent to.')
     parser.add_argument('--log', type=str, default="INFO", required=False,
                        help='which log level. DEBUG, INFO, WARNING, CRITICAL')
     parser.add_argument('--tags', type=str, required=False,
@@ -81,14 +87,15 @@ def main():
 
     try:
         # setup the model
-        template_object = json_from_stdin(fileinput)
+        template_body = json_from_stdin(sys.stdin.readlines())
+        #template_object = json_from_stdin(lines)
 
         params = make_kv_from_args(args.params, "Parameter", False)
         tags = make_kv_from_args(args.tags)
 
         response = client.create_stack(
             StackName=args.name,
-            TemplateBody=json.dumps(template_object),
+            TemplateBody=template_body,
             Parameters=params,
             DisableRollback=False,
             TimeoutInMinutes=2,
@@ -110,6 +117,7 @@ def main():
     except:
         # catch any failure
         logging.critical("Unexpected error: {0}".format(sys.exc_info()[0]))
+        traceback.print_exc()
 
 if __name__ == '__main__':
     main()

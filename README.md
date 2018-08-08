@@ -89,6 +89,12 @@ Boto3 is capable of auto configuration, and it will behave like aws CLI and atte
 `python gen-template.py --name apache --config dev`
 
 # running a stack build
-Currently builing a stack is a combination of creating the template and sending the output of the template to stdio.
+Currently building a stack is a combination of creating the template and sending the output of the template to stdio.
 
-`python gen-template.py --name apache --config dev | python create-stack.py --name ec2-basic-01 --params "KeyName=dronze-oregon-dev&InstanceType=t2.small" --tags "name=newstack01&roo=mar"`
+```
+python gen-template.py --name apache --config dev | python create-stack.py --name ec2-basic-01 --params "KeyName=dronze-oregon-dev" --tags "name=newstack01&roo=mar"
+INFO       2018-08-07 20:52:04,770 make_cloudformation_client           50  : using default config.
+INFO       2018-08-07 20:52:04,780 load                                 1032: Found credentials in shared credentials file: ~/.aws/credentials
+INFO       2018-08-07 20:52:04,904 _new_conn                            735 : Starting new HTTPS connection (1): cloudformation.us-west-2.amazonaws.com
+INFO       2018-08-07 20:52:05,097 main                                 109 : succeed. response: {"StackId": "arn:aws:cloudformation:us-west-2:705212546939:stack/ec2-basic-01/5bc91a50-9abe-11e8-9f7c-0a44a01d32f4", "ResponseMetadata": {"RetryAttempts": 0, "HTTPStatusCode": 200, "RequestId": "6a25b5fb-9abe-11e8-b4ee-0fe61e08b3ca", "HTTPHeaders": {"x-amzn-requestid": "6a25b5fb-9abe-11e8-b4ee-0fe61e08b3ca", "date": "Wed, 08 Aug 2018 03:52:04 GMT", "content-length": "382", "content-type": "text/xml"}}}
+```

@@ -25,7 +25,6 @@ def main():
 
     # init LOGGER
     stack = importlib.import_module('tropiac.stacks.{0}'.format(args.name))
-    print(stack)
     cfg = stack.get_config()
     template = stack.make_template(cfg[args.config])
 
