@@ -4,9 +4,6 @@ a basic pattern for doing IAC with troposphere
 ## installing requirements
 `pip install -r requirements.txt`
 
-# display stack
-
-
 # create stack
 Create a stack with from a template sent by stdin.
 
